@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  claude-code:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        CLAUDE_CODE_VERSION: latest
+        TZ: ${TZ:-UTC}
+    image: claude-code:latest
+    container_name: claude-code
+    volumes:
+      # Mount your project directory
+      - ${PROJECT_DIR:-.}:/workspace
+      # Persist Claude configuration
+      - claude-config:/home/claude/.claude
+      # Persist bash history (optional)
+      - claude-history:/home/claude/.bash_history
+    environment:
+      # Set your Anthropic API key
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      # Claude configuration directory
+      - CLAUDE_CONFIG_DIR=/home/claude/.claude
+      # Node.js memory settings (optional)
+      - NODE_OPTIONS=--max-old-space-size=4096
+      # Timezone
+      - TZ=${TZ:-UTC}
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    # Override entrypoint to start an interactive shell
+    entrypoint: /bin/bash
+    command: ["-c", "claude"]
+
+volumes:
+  claude-config:
+    name: claude-config
+  claude-history:
+    name: claude-history

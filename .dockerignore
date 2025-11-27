@@ -1,0 +1,49 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+.github
+
+# Development files
+.vscode
+.devcontainer
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Documentation
+*.md
+!README.md
+demo.gif
+
+# CI/CD
+.github
+
+# IDE
+.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+dist
+build
+*.tgz
+
+# Temporary files
+tmp
+temp
+*.tmp
